@@ -1,0 +1,59 @@
+<!-- vendor.html (renamed from verification.html for clarity) -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vendor Verification | BotalSePaisa</title>
+    <link rel="stylesheet" href="vendor.css" />
+</head>
+
+<body>
+    <header>✅ Vendor QR Scanner & Verification</header>
+    <div class="dashboard">
+        <div class="card">
+            <h2>Scan QR Code</h2>
+            <p><button onclick="scanQRCode()">📷 Start Scanning</button></p>
+        </div>
+        <div class="card" id="statusCard" style="display:none;">
+            <h2>QR Status</h2>
+            <p id="qrStatus">Checking...</p>
+            <button id="markReturnedBtn" style="display:none;" onclick="markAsReturned()">✅ Mark as Returned</button>
+        </div>
+    </div>
+
+    <script>
+        let scannedQR = '';
+
+        function scanQRCode() {
+            // Simulate QR scanning - replace with actual scanner integration
+            scannedQR = prompt("Enter QR Code (simulate scan):");
+            if (scannedQR) {
+                document.getElementById("statusCard").style.display = "block";
+                fetchStatus(scannedQR);
+            }
+        }
+
+        function fetchStatus(qrCode) {
+            // Simulated DB lookup (replace with real API call)
+            // Example response from backend
+            const dbStatus = "pending"; // Simulate a pending status
+
+            document.getElementById("qrStatus").textContent = `QR Code: ${qrCode} → Status: ${dbStatus}`;
+
+            if (dbStatus === "pending") {
+                document.getElementById("markReturnedBtn").style.display = "inline-block";
+            }
+        }
+
+        function markAsReturned() {
+            // Simulate updating backend status (replace with real POST call)
+            document.getElementById("qrStatus").textContent = `QR Code: ${scannedQR} → Status: returned ✅`;
+            document.getElementById("markReturnedBtn").style.display = "none";
+            alert("Status updated to 'returned'. Payment initiated for User and Vendor.");
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Generate Bottle QR Code</title>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+            background-color: #f8fafc;
+            color: #111827;
+        }
+
+        input {
+            padding: 0.5rem;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 0.5rem 1.5rem;
+            background-color: #2563eb;
+            color: white;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        #qrcode {
+            margin-top: 2rem;
+        }
+
+        #qr-output {
+            margin-top: 1rem;
+            word-break: break-all;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Generate Bottle QR Code</h2>
+    <input type="text" id="bottle-id" placeholder="Enter Bottle ID (e.g., 000001)" />
+    <button onclick="generateBottleQR()">Generate QR</button>
+
+    <div id="qr-output"></div>
+    <canvas id="qrcode"></canvas>
+
+    <script>
+        function generateBottleQR() {
+            const bottleId = document.getElementById('bottle-id').value.trim();
+            const qrCanvas = document.getElementById('qrcode');
+            const outputText = document.getElementById('qr-output');
+
+            if (!bottleId.match(/^\d{6}$/)) {
+                alert('Please enter a valid 6-digit Bottle ID');
+                return;
+            }
+
+            const timestamp = Date.now();
+            const qrData = `BOTTLE_${bottleId}_${timestamp}`;
+
+            QRCode.toCanvas(qrCanvas, qrData, { width: 220 }, function (err) {
+                if (err) {
+                    console.error(err);
+                    alert('Failed to generate QR');
+                } else {
+                    outputText.textContent = `QR Data: ${qrData}`;
+                }
+            });
+        }
+    </script>
+
+</body>
+
+</html>
