@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact – DigiHelp</title>
+
+  <!-- Google Font + Font Awesome Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    integrity="sha512-u2JrHgRZ..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+  <link rel="stylesheet" href="contact.css">
+
+</head>
+
+<body>
+
+  <header class="sub-header">
+    <a href="index.html" class="return-home-btn"
+      style="position:absolute;left:2vw;top:2vw;text-decoration:none;">&#8592; Home</a>
+    <h1>📬 Contact botalsepaisa</h1>
+  </header>
+  <p class="lead">Have feedback, need assistance, or want to collaborate? We’d love to hear from you.</p>
+
+  <div class="wrapper">
+
+    <!-- Left column: info & socials -->
+    <section class="info-card">
+      <div class="info-item"><i class="fa-solid fa-envelope"></i>botalsepaisa@gmail.com </div>
+      <div class="info-item"><i class="fa-solid fa-phone"></i> +91 96749 47239</div>
+      <div class="info-item"><i class="fa-solid fa-location-dot"></i> Kolkata, India</div>
+
+      <div style="margin-top:1rem;font-weight:600">Follow us</div>
+      <div class="socials">
+        <a href="#" aria-label="Facebook" class="fa-brands fa-facebook"></a>
+        <a href="#" aria-label="Twitter / X" class="fa-brands fa-x-twitter"></a>
+        <a href="#" aria-label="Instagram" class="fa-brands fa-instagram"></a>
+        <a href="#" aria-label="LinkedIn" class="fa-brands fa-linkedin"></a>
+      </div>
+    </section>
+
+    <!-- Right column: contact form -->
+    <form id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <input type="text" name="name" placeholder="Your Name" required />
+      <input type="email" name="email" placeholder="Your Email" required />
+      <textarea name="message" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+
+  </div>
+
+  <div class="toast" id="toast">Thanks! Your message has been sent. 🎉</div>
+
+  <script>
+    // 💌 Tiny success toast without extra libraries
+    const form = document.getElementById('contactForm');
+    const toast = document.getElementById('toast');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();        // keep page from navigating away
+      const data = new FormData(form);
+
+      /* Send the form with fetch — works with Formspree’s endpoint.
+         If you swap to a Flask route, just adjust the URL.           */
+      try {
+        await fetch(form.action, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } });
+        form.reset();
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 3500);
+      } catch (err) {
+        alert('Oops – something went wrong. Please email us directly.');
+      }
+    });
+  </script>
+</body>
+
+</html>

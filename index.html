@@ -1,58 +1,143 @@
-<!-- vendor.html (renamed from verification.html for clarity) -->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Vendor Verification | BotalSePaisa</title>
-    <link rel="stylesheet" href="vendor.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vendor Portal - BotalSePaisa</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .fade-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-up.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </head>
 
-<body>
-    <header>✅ Vendor QR Scanner & Verification</header>
-    <div class="dashboard">
-        <div class="card">
-            <h2>Scan QR Code</h2>
-            <p><button onclick="scanQRCode()">📷 Start Scanning</button></p>
+<body class="bg-white text-gray-800 font-sans">
+    <!-- Navbar -->
+    <nav class="flex justify-between items-center px-6 py-4 bg-white shadow animate__animated animate__fadeInDown">
+        <div class="text-xl font-bold flex items-center space-x-2">
+            <img src="images/main_logo.jpg" alt="logo" class="w-10 h-10">
+            <span class="text-[#138808]">BotalSePaisa</span>
         </div>
-        <div class="card" id="statusCard" style="display:none;">
-            <h2>QR Status</h2>
-            <p id="qrStatus">Checking...</p>
-            <button id="markReturnedBtn" style="display:none;" onclick="markAsReturned()">✅ Mark as Returned</button>
+        <div class="flex space-x-6 text-sm">
+
+
+            <a href="vendor_login.html" class="text-gray-700 hover:text-[#FF9933]">Login</a>
+            <a href="vendor_signup.html" class="text-white bg-[#FF9933] hover:bg-[#e77e1e] px-4 py-1 rounded-full">Sign
+                Up</a>
         </div>
-    </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-[#FF9933] via-white to-[#138808] py-20 text-center fade-up">
+        <h1 class="text-5xl font-bold text-gray-900">Join as a BottleBack Vendor</h1>
+        <p class="mt-4 text-lg max-w-2xl mx-auto">Help your city recycle and earn with every bottle returned. Vendors
+            are a key part of our sustainability chain.</p>
+    </section>
+
+    <!-- How Vendors Help Section -->
+    <section class="py-16 px-6 max-w-6xl mx-auto fade-up">
+        <h2 class="text-3xl font-semibold text-center mb-10">What Vendors Do</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div
+                class="bg-white p-6 shadow-md border-t-4 border-[#FF9933] rounded-lg hover:scale-105 transform transition">
+                <h3 class="text-xl font-bold mb-2 text-[#FF9933]">Scan Returned Bottles</h3>
+                <p>Vendors verify and scan the QR codes on bottles returned by users. This marks the bottle as recycled
+                    in our system.</p>
+            </div>
+            <div
+                class="bg-white p-6 shadow-md border-t-4 border-gray-400 rounded-lg hover:scale-105 transform transition">
+                <h3 class="text-xl font-bold mb-2 text-gray-700">Track and Process Returns</h3>
+                <p>Each scan is tracked, and the vendor receives a reward for confirmed collections and returns.</p>
+            </div>
+            <div
+                class="bg-white p-6 shadow-md border-t-4 border-[#138808] rounded-lg hover:scale-105 transform transition">
+                <h3 class="text-xl font-bold mb-2 text-[#138808]">Request Pickups</h3>
+                <p>If bottles accumulate, vendors can request pickup by the BottleBack team for disposal and credit
+                    issuance.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vendor Benefits Section -->
+    <section class="bg-gray-100 py-16 px-6 fade-up">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl font-semibold mb-6">Why Join as a Vendor?</h2>
+            <ul class="text-lg space-y-3">
+                <li>✅ Earn money per bottle returned</li>
+                <li>✅ Get visibility as a local recycler</li>
+                <li>✅ Contribute to a cleaner city</li>
+                <li>✅ Be part of a national sustainability movement</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white pt-16 pb-8 px-6">
+        <div
+            class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 border-b border-gray-700 pb-10">
+            <div></div> <!-- Spacer -->
+            <!-- Company -->
+            <div>
+                <h4 class="text-green-500 font-semibold mb-3">Company</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="aboutus.html" class="hover:text-green-400">About Us</a></li>
+                </ul>
+            </div>
+            <!-- Help -->
+            <div>
+                <h4 class="text-green-500 font-semibold mb-3">Help</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="contact.html" class="hover:text-green-400">Contact Us</a></li>
+                </ul>
+            </div>
+            <!-- Contact Info -->
+            <div>
+                <div class="flex items-center gap-2 mb-2">
+                    <img src="images/main_logo.jpg" alt="Logo" class="h-8 w-8">
+                    <span class="text-green-500 font-semibold text-lg">botalsepaisa</span>
+                </div>
+                <ul class="text-sm space-y-2">
+                    <li>📞 +91-9674947239</li>
+                    <li>✉️ botalsepaisa@gmail.com</li>
+                    <li>📍 Kolkata, West Bengal</li>
+                </ul>
+                <div class="flex gap-3 mt-4">
+                    <a href="https://www.instagram.com/botalsepaisa" class="hover:text-gray-300"><i
+                            class="fab fa-instagram"></i></a>
+                    <a href="#" class="hover:text-gray-300"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="hover:text-gray-300"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="hover:text-gray-300"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-6 text-sm text-gray-400">
+            <p>Made with <span class="text-red-500">❤️</span> in India, for the World</p>
+        </div>
+    </footer>
 
     <script>
-        let scannedQR = '';
-
-        function scanQRCode() {
-            // Simulate QR scanning - replace with actual scanner integration
-            scannedQR = prompt("Enter QR Code (simulate scan):");
-            if (scannedQR) {
-                document.getElementById("statusCard").style.display = "block";
-                fetchStatus(scannedQR);
-            }
-        }
-
-        function fetchStatus(qrCode) {
-            // Simulated DB lookup (replace with real API call)
-            // Example response from backend
-            const dbStatus = "pending"; // Simulate a pending status
-
-            document.getElementById("qrStatus").textContent = `QR Code: ${qrCode} → Status: ${dbStatus}`;
-
-            if (dbStatus === "pending") {
-                document.getElementById("markReturnedBtn").style.display = "inline-block";
-            }
-        }
-
-        function markAsReturned() {
-            // Simulate updating backend status (replace with real POST call)
-            document.getElementById("qrStatus").textContent = `QR Code: ${scannedQR} → Status: returned ✅`;
-            document.getElementById("markReturnedBtn").style.display = "none";
-            alert("Status updated to 'returned'. Payment initiated for User and Vendor.");
-        }
+        const faders = document.querySelectorAll('.fade-up');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+        faders.forEach(el => observer.observe(el));
     </script>
 </body>
 

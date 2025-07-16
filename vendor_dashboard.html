@@ -2,86 +2,70 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Vendor Dashboard | BotalSePaisa</title>
-    <link rel="stylesheet" href="styles/vender_dashboard_styles.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Dashboard - BotalSePaisa</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body>
+<body class="bg-white text-gray-800 font-sans">
+    <!-- Navbar -->
+    <nav class="flex justify-between items-center px-6 py-4 bg-white shadow">
+        <div class="text-xl font-bold flex items-center space-x-2">
+            <img src="your-logo.png" alt="logo" class="w-10 h-10">
+            <span class="text-[#138808]">BotalSePaisa</span>
+        </div>
+        <div class="flex space-x-6 text-sm">
+            <a href="/vendor.html" class="text-gray-700 hover:text-[#FF9933]">Home</a>
+            <a href="/contact.html" class="text-gray-700 hover:text-[#FF9933]">Contact</a>
+            <a href="/vendor-login.html" class="text-white bg-[#FF9933] px-4 py-1 rounded-full">Logout</a>
+        </div>
+    </nav>
 
-    <header>
-        📊 Vendor Dashboard – BotalSePaisa
-    </header>
+    <!-- Dashboard Section -->
+    <section class="py-12 px-4 max-w-7xl mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-8">Vendor Dashboard</h2>
 
-    <div class="dashboard">
-
-        <a class="card-link" href="bottles.html">
-            <div class="card">
-                <h2>Total Bottles Collected</h2>
-                <p>1,248 🧴</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Scan Returned Bottle -->
+            <div class="bg-white p-6 border-t-4 border-[#FF9933] rounded-lg shadow hover:shadow-xl transition">
+                <h3 class="text-xl font-semibold mb-2 text-[#FF9933]">Scan Returned Bottles</h3>
+                <p class="mb-4">Verify and scan QR codes on returned bottles to update the system and reward users.</p>
+                <a href="vendor_scan.html"
+                    class="text-white bg-[#FF9933] px-4 py-2 rounded hover:bg-[#e77e1e] inline-block">Scan Now</a>
             </div>
-        </a>
 
-        <a class="card-link" href="earnings.html">
-            <div class="card">
-                <h2>Total Earnings</h2>
-                <p>₹1,248 💰</p>
+            <!-- View Payouts -->
+            <div class="bg-white p-6 border-t-4 border-[#138808] rounded-lg shadow hover:shadow-xl transition">
+                <h3 class="text-xl font-semibold mb-2 text-[#138808]">Vendor Payout</h3>
+                <p class="mb-4">Track your rewards, pending earnings, and UPI payout history in one place.</p>
+                <a href="vendor_payout.html"
+                    class="text-white bg-[#138808] px-4 py-2 rounded hover:bg-green-700 inline-block">Check Payouts</a>
             </div>
-        </a>
 
-        <a class="card-link" href="pickup.html">
-            <div class="card">
-                <h2>Pickup Requests</h2>
-                <p>6 🚚</p>
+            <!-- Request Bottle Pickup -->
+            <div class="bg-white p-6 border-t-4 border-gray-500 rounded-lg shadow hover:shadow-xl transition">
+                <h3 class="text-xl font-semibold mb-2 text-gray-700">Request Bottle Pickup</h3>
+                <p class="mb-4">Call for a scheduled pickup when the bottle bin is full or near capacity.</p>
+                <a href="vendor_pickup.html"
+                    class="text-white bg-gray-700 px-4 py-2 rounded hover:bg-gray-900 inline-block">Request Pickup</a>
             </div>
-        </a>
+        </div>
+    </section>
 
-        <a class="card-link" href="payout.html">
-            <div class="card">
-                <h2>Payout Status</h2>
-                <p>Pending 🔁</p>
+    <!-- Footer -->
+    <footer class="bg-black text-white pt-10 pb-6 px-6 mt-12">
+        <div
+            class="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center border-t border-gray-700 pt-6">
+            <div class="text-sm text-gray-400">Made with <span class="text-red-500">❤</span> in India, for the World
             </div>
-        </a>
-
-        <a class="card-link" href="verification.html">
-            <div class="card">
-                <h2>Account Verified</h2>
-                <p>✅ Yes</p>
+            <div class="flex space-x-4 mt-4 md:mt-0">
+                <a href="aboutus.html" class="hover:text-gray-300 text-sm">About Us</a>
+                <a href="contact.html" class="hover:text-gray-300 text-sm">Contact</a>
             </div>
-        </a>
-
-
-
-    </div>
-
-
-    <div class="card">
-        <h2>Scan Bottle QR (Vendor)</h2>
-        <div id="vendor-qr-reader" style="width:300px;"></div>
-        <div id="vendor-scan-status" style="margin-top:10px;"></div>
-    </div>
-
-    <div class="card">
-        <h2>Pending Bottle Returns</h2>
-        <table id="pending-table" border="1">
-            <thead>
-                <tr>
-                    <th>QR Code</th><th>User</th><th>Phone</th><th>Returned At</th><th>Action</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </div>
-
-    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
-    <script src="vendor_scan_qr.js"></script>
-    <script src="vendor_pending_returns.js"></script>
-
-        Made with ❤️ for Recyclers · BotalSePaisa 2025
-    </div>
-
+        </div>
+    </footer>
 </body>
 
 </html>
