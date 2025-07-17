@@ -16,7 +16,8 @@ app.use(cors({
   origin: [
     'http://localhost:3000',
     'http://127.0.0.1:3000',
-    process.env.FRONTEND_URL
+    process.env.FRONTEND_URL,
+    'https://danx06-lab.github.io'
   ],
   credentials: true
 }));
