@@ -34,7 +34,6 @@ app.use('/api/auth', loginRouter);      // POST /api/auth/login
 app.use('/api/vendor/payout', payoutRouter); // Payout endpoints
 app.use('/api/pickup', pickupRouter); // Pickup request endpoints
 app.use('/api/bottle', scanRouter); // Bottle scan endpoints
-app.use('/api/qr', qrRegistrationRouter); // QR registration endpoint
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
