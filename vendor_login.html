@@ -29,11 +29,13 @@
             <form id="login-form" class="space-y-5">
                 <div>
                     <label for="email" class="block mb-1 font-medium">Email</label>
-                    <input type="tel" id="contact_number" name="contact_number" required placeholder="Phone Number" class="w-full border px-3 py-2 rounded-md">
+                    <input type="tel" id="contact_number" name="contact_number" required placeholder="Phone Number"
+                        class="w-full border px-3 py-2 rounded-md">
                 </div>
                 <div>
                     <label for="password" class="block mb-1 font-medium">Password</label>
-                    <input type="password" id="password" name="password" required class="w-full border px-3 py-2 rounded-md">
+                    <input type="password" id="password" name="password" required
+                        class="w-full border px-3 py-2 rounded-md">
                 </div>
                 <div id="login-error" class="text-red-600 text-sm mt-2"></div>
                 <button type="submit"
@@ -58,38 +60,38 @@
             </div>
         </div>
     </footer>
-<script>
-document.getElementById('login-form').onsubmit = async function(e) {
-    e.preventDefault();
-    const form = e.target;
-    const errorDiv = document.getElementById('login-error');
-    errorDiv.textContent = '';
-    const data = {
-        contact_number: form.contact_number.value.trim(),
-        password: form.password.value
-    };
-    try {
-        const res = await fetch('/api/auth/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        });
-        const result = await res.json();
-        if (res.ok && result.token) {
-            localStorage.setItem('vendor_token', result.token);
-            // Decode vendor_id from JWT or (better) return it from backend
-            if (result.vendor_id) {
-                localStorage.setItem('vendor_id', result.vendor_id);
+    <script>
+        document.getElementById('login-form').onsubmit = async function (e) {
+            e.preventDefault();
+            const form = e.target;
+            const errorDiv = document.getElementById('login-error');
+            errorDiv.textContent = '';
+            const data = {
+                contact_number: form.contact_number.value.trim(),
+                password: form.password.value
+            };
+            try {
+                const res = await fetch('https://botalsepaisa-vendor.onrender.com/api/vendor/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                const result = await res.json();
+                if (res.ok && result.token) {
+                    localStorage.setItem('vendor_token', result.token);
+                    // Decode vendor_id from JWT or (better) return it from backend
+                    if (result.vendor_id) {
+                        localStorage.setItem('vendor_id', result.vendor_id);
+                    }
+                    window.location.href = 'vendor_dashboard.html';
+                } else {
+                    errorDiv.textContent = result.error || 'Login failed.';
+                }
+            } catch (err) {
+                errorDiv.textContent = 'Network error. Please try again.';
             }
-            window.location.href = 'vendor_dashboard.html';
-        } else {
-            errorDiv.textContent = result.error || 'Login failed.';
-        }
-    } catch (err) {
-        errorDiv.textContent = 'Network error. Please try again.';
-    }
-};
-</script>
+        };
+    </script>
 </body>
 
 </html>

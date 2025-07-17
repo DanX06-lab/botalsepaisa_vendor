@@ -41,46 +41,48 @@
                     </tr>
                 </thead>
                 <tbody id="transactionsBody">
-                    <tr><td colspan="3" class="text-center py-4">Loading...</td></tr>
+                    <tr>
+                        <td colspan="3" class="text-center py-4">Loading...</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
     </section>
-<script>
-// Assume vendor_id is stored in localStorage
-const vendorId = localStorage.getItem('vendor_id');
+    <script>
+        // Assume vendor_id is stored in localStorage
+        const vendorId = localStorage.getItem('vendor_id');
 
-async function fetchPayoutSummary() {
-    if (!vendorId) {
-        document.getElementById('totalEarnings').textContent = 'Login required';
-        document.getElementById('transactionsBody').innerHTML = '<tr><td colspan="3" class="text-center py-4 text-red-500">Please log in to view payout details.</td></tr>';
-        return;
-    }
-    try {
-        const res = await fetch(`/api/vendor/payout/summary/${vendorId}`);
-        if (!res.ok) throw new Error('Failed to fetch');
-        const data = await res.json();
-        document.getElementById('totalEarnings').textContent = `₹${data.total_earnings || 0}`;
-        const tbody = document.getElementById('transactionsBody');
-        if (!data.transactions || data.transactions.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="3" class="text-center py-4">No transactions yet.</td></tr>';
-        } else {
-            tbody.innerHTML = data.transactions.map(tx => `
+        async function fetchPayoutSummary() {
+            if (!vendorId) {
+                document.getElementById('totalEarnings').textContent = 'Login required';
+                document.getElementById('transactionsBody').innerHTML = '<tr><td colspan="3" class="text-center py-4 text-red-500">Please log in to view payout details.</td></tr>';
+                return;
+            }
+            try {
+                const res = await fetch(`https://botalsepaisa-vendor.onrender.com/api/vendor/payout/summary/${vendorId}`);
+                if (!res.ok) throw new Error('Failed to fetch');
+                const data = await res.json();
+                document.getElementById('totalEarnings').textContent = `₹${data.total_earnings || 0}`;
+                const tbody = document.getElementById('transactionsBody');
+                if (!data.transactions || data.transactions.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="3" class="text-center py-4">No transactions yet.</td></tr>';
+                } else {
+                    tbody.innerHTML = data.transactions.map(tx => `
                 <tr>
                     <td class="px-4 py-2">${tx.date}</td>
                     <td class="px-4 py-2">${tx.bottles_processed}</td>
                     <td class="px-4 py-2">₹${tx.amount_credited}</td>
                 </tr>
             `).join('');
+                }
+            } catch (err) {
+                document.getElementById('totalEarnings').textContent = 'Error';
+                document.getElementById('transactionsBody').innerHTML = '<tr><td colspan="3" class="text-center py-4 text-red-500">Failed to load data.</td></tr>';
+            }
         }
-    } catch (err) {
-        document.getElementById('totalEarnings').textContent = 'Error';
-        document.getElementById('transactionsBody').innerHTML = '<tr><td colspan="3" class="text-center py-4 text-red-500">Failed to load data.</td></tr>';
-    }
-}
 
-fetchPayoutSummary();
-</script>
+        fetchPayoutSummary();
+    </script>
 </body>
 
 </html>
