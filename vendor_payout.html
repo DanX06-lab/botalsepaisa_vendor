@@ -27,7 +27,7 @@
 
         <div class="bg-white p-6 rounded-lg shadow-md mb-6">
             <h3 class="text-xl font-semibold mb-2">Total Earnings</h3>
-            <p class="text-2xl font-bold text-green-600">₹4,250</p>
+            <p id="totalEarnings" class="text-2xl font-bold text-green-600">Loading...</p>
         </div>
 
         <div class="bg-white p-6 rounded-lg shadow-md">
@@ -40,26 +40,47 @@
                         <th class="px-4 py-2 text-left">Amount Credited</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr class="border-b">
-                        <td class="px-4 py-2">2025-07-14</td>
-                        <td class="px-4 py-2">38</td>
-                        <td class="px-4 py-2">₹190</td>
-                    </tr>
-                    <tr class="border-b">
-                        <td class="px-4 py-2">2025-07-13</td>
-                        <td class="px-4 py-2">22</td>
-                        <td class="px-4 py-2">₹110</td>
-                    </tr>
-                    <tr>
-                        <td class="px-4 py-2">2025-07-12</td>
-                        <td class="px-4 py-2">45</td>
-                        <td class="px-4 py-2">₹225</td>
-                    </tr>
+                <tbody id="transactionsBody">
+                    <tr><td colspan="3" class="text-center py-4">Loading...</td></tr>
                 </tbody>
             </table>
         </div>
     </section>
+<script>
+// Assume vendor_id is stored in localStorage
+const vendorId = localStorage.getItem('vendor_id');
+
+async function fetchPayoutSummary() {
+    if (!vendorId) {
+        document.getElementById('totalEarnings').textContent = 'Login required';
+        document.getElementById('transactionsBody').innerHTML = '<tr><td colspan="3" class="text-center py-4 text-red-500">Please log in to view payout details.</td></tr>';
+        return;
+    }
+    try {
+        const res = await fetch(`/api/vendor/payout/summary/${vendorId}`);
+        if (!res.ok) throw new Error('Failed to fetch');
+        const data = await res.json();
+        document.getElementById('totalEarnings').textContent = `₹${data.total_earnings || 0}`;
+        const tbody = document.getElementById('transactionsBody');
+        if (!data.transactions || data.transactions.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="3" class="text-center py-4">No transactions yet.</td></tr>';
+        } else {
+            tbody.innerHTML = data.transactions.map(tx => `
+                <tr>
+                    <td class="px-4 py-2">${tx.date}</td>
+                    <td class="px-4 py-2">${tx.bottles_processed}</td>
+                    <td class="px-4 py-2">₹${tx.amount_credited}</td>
+                </tr>
+            `).join('');
+        }
+    } catch (err) {
+        document.getElementById('totalEarnings').textContent = 'Error';
+        document.getElementById('transactionsBody').innerHTML = '<tr><td colspan="3" class="text-center py-4 text-red-500">Failed to load data.</td></tr>';
+    }
+}
+
+fetchPayoutSummary();
+</script>
 </body>
 
 </html>

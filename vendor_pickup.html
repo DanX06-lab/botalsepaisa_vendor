@@ -25,7 +25,7 @@
     <section class="py-12 px-4 max-w-xl mx-auto">
         <h2 class="text-3xl font-bold mb-6 text-center">Request Bottle Pickup</h2>
 
-        <form class="space-y-6 bg-gray-50 p-6 rounded-lg shadow-md">
+        <form id="pickupForm" class="space-y-6 bg-gray-50 p-6 rounded-lg shadow-md">
             <div>
                 <label for="vendorName" class="block font-medium">Vendor Name</label>
                 <input type="text" id="vendorName" class="mt-1 block w-full border border-gray-300 rounded p-2"
@@ -51,8 +51,46 @@
             <button type="submit"
                 class="w-full bg-[#FF9933] hover:bg-[#e77e1e] text-white font-semibold py-2 rounded">Request
                 Pickup</button>
-        </form>
+        <div id="pickupMsg" class="text-center text-sm mt-2"></div>
+</form>
     </section>
+<script>
+const form = document.getElementById('pickupForm');
+const msgDiv = document.getElementById('pickupMsg');
+form.onsubmit = async function(e) {
+    e.preventDefault();
+    msgDiv.textContent = '';
+    const vendor_id = localStorage.getItem('vendor_id');
+    const vendor_name = document.getElementById('vendorName').value.trim();
+    const pickup_location = document.getElementById('location').value.trim();
+    const approximate_bottles = document.getElementById('bottleCount').value.trim();
+    const contact_number = document.getElementById('phone').value.trim();
+    if (!vendor_id) {
+        msgDiv.textContent = 'You must be logged in to request a pickup.';
+        msgDiv.className = 'text-center text-red-600 mt-2';
+        return;
+    }
+    try {
+        const res = await fetch('/api/pickup/request', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ vendor_id, vendor_name, pickup_location, approximate_bottles, contact_number })
+        });
+        const result = await res.json();
+        if (res.ok) {
+            msgDiv.textContent = 'Pickup request submitted successfully!';
+            msgDiv.className = 'text-center text-green-600 mt-2';
+            form.reset();
+        } else {
+            msgDiv.textContent = result.error || 'Failed to submit request.';
+            msgDiv.className = 'text-center text-red-600 mt-2';
+        }
+    } catch (err) {
+        msgDiv.textContent = 'Network error. Please try again.';
+        msgDiv.className = 'text-center text-red-600 mt-2';
+    }
+}
+</script>
 </body>
 
 </html>
