@@ -8,7 +8,7 @@ const loginRouter = require('./vendor_login_credentials');
 const payoutRouter = require('./vendor_payout_credentials');
 const pickupRouter = require('./vendor_pickup_credentials');
 const scanRouter = require('./vendor_scan_credentials');
-const qrRegistrationRouter = require('./qr_registration_credentials');
+
 
 const app = express();
 app.use(express.json());
