@@ -11,16 +11,33 @@
 
 <body class="bg-white text-gray-800 font-sans">
     <!-- Navbar -->
-    <nav class="flex justify-between items-center px-6 py-4 bg-white shadow">
+    <nav class="flex justify-between items-center px-6 py-4 bg-white shadow relative">
         <div class="text-xl font-bold flex items-center space-x-2">
             <img src="images/main_logo.jpg" alt="logo" class="w-10 h-10">
             <span class="text-[#138808]">BotalSePaisa</span>
         </div>
-        <div class="flex space-x-6 text-sm">
-            <a href="index.html" class="text-gray-700 hover:text-[#FF9933]">Home</a>
-            <a href="contact.html" class="text-gray-700 hover:text-[#FF9933]">Contact</a>
-            <a href="vendor_login.html" class="text-white bg-[#FF9933] px-4 py-1 rounded-full">Logout</a>
+        <!-- Hamburger menu button (mobile) -->
+        <button id="menu-toggle" class="md:hidden flex flex-col justify-center items-center w-10 h-10 focus:outline-none" aria-label="Toggle menu">
+            <span class="block w-6 h-0.5 bg-gray-700 mb-1"></span>
+            <span class="block w-6 h-0.5 bg-gray-700 mb-1"></span>
+            <span class="block w-6 h-0.5 bg-gray-700"></span>
+        </button>
+        <!-- Navbar links -->
+        <div id="navbar-menu" class="hidden absolute top-full right-6 left-6 bg-white shadow-md rounded-b-lg md:static md:flex md:space-x-6 md:bg-transparent md:shadow-none md:rounded-none md:items-center md:text-sm z-20">
+            <a href="index.html" class="block px-4 py-2 text-gray-700 hover:text-[#FF9933] md:inline md:p-0">Home</a>
+            <a href="contact.html" class="block px-4 py-2 text-gray-700 hover:text-[#FF9933] md:inline md:p-0">Contact</a>
+            <a href="vendor_login.html" class="block px-4 py-2 text-white bg-[#FF9933] rounded-full md:inline md:px-4 md:py-1 md:rounded-full md:bg-[#FF9933] md:text-white md:ml-2 hover:bg-[#e77e1e]">Logout</a>
         </div>
+        <script>
+            // Toggle mobile menu
+            document.addEventListener('DOMContentLoaded', function() {
+                const menuToggle = document.getElementById('menu-toggle');
+                const navbarMenu = document.getElementById('navbar-menu');
+                menuToggle.addEventListener('click', function() {
+                    navbarMenu.classList.toggle('hidden');
+                });
+            });
+        </script>
     </nav>
 
     <!-- Dashboard Section -->
