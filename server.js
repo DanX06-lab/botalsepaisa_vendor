@@ -32,7 +32,7 @@ app.get('/', (req, res) => {
 
 // Mount API routers
 app.use('/api/vendor', signupRouter);   // POST /api/vendor/register
-app.use('/api/auth', loginRouter);      // POST /api/auth/login
+app.use('/api/vendor', loginRouter);      // POST /api/auth/login
 app.use('/api/vendor/payout', payoutRouter); // Payout endpoints
 app.use('/api/pickup', pickupRouter); // Pickup request endpoints
 app.use('/api/bottle', scanRouter); // Bottle scan endpoints
